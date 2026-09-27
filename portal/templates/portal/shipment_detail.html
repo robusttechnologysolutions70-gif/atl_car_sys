@@ -1,0 +1,93 @@
+{% extends "portal/dashboard_base.html" %}
+{% load portal_extras %}
+{% block title %}{{ shipment.reference }} — Atlas Cargo{% endblock %}
+{% block dashboard_content %}
+<a href="{% url 'portal:shipment_list' %}" class="text-decoration-none small text-muted">&larr; Back to shipments</a>
+
+<div class="d-flex justify-content-between align-items-center mt-2 mb-1 flex-wrap gap-2">
+  <h1 class="mb-0">{{ shipment.reference }}</h1>
+  <span class="badge text-bg-{{ shipment.status|status_color }} fs-6">{{ shipment.get_status_display }}</span>
+</div>
+<p class="text-muted mb-4">{{ shipment.origin }} &rarr; {{ shipment.destination }} &middot; {{ shipment.get_mode_display }}</p>
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-sm-3"><div class="text-muted small">Branch</div><div>{{ shipment.get_branch_display }}</div></div>
+      <div class="col-sm-3"><div class="text-muted small">Bill of lading</div><div>{{ shipment.bill_of_lading|default:"—" }}</div></div>
+      <div class="col-sm-3"><div class="text-muted small">Airway bill</div><div>{{ shipment.airway_bill|default:"—" }}</div></div>
+      <div class="col-sm-3"><div class="text-muted small">ETA</div><div>{{ shipment.eta|default:"—" }}</div></div>
+    </div>
+  </div>
+</div>
+
+<h2 class="h5">Status history</h2>
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    {% if status_updates %}
+      <ul class="list-group list-group-flush">
+        {% for update in status_updates %}
+        <li class="list-group-item">
+          <strong>{{ update.get_status_display }}</strong>
+          <span class="text-muted small">&mdash; {{ update.created_at|date:"d M Y, H:i" }}</span>
+          {% if update.note %}<div class="text-muted small">{{ update.note }}</div>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted text-center mb-0 py-3">No status updates yet.</p>
+    {% endif %}
+
+    {% if is_staff_user %}
+      <form method="post" action="{% url 'portal:add_status_update' shipment.reference %}" class="d-flex gap-2 mt-3 flex-wrap border-top pt-3">
+        {% csrf_token %}
+        <select name="status" class="form-select" style="max-width:220px;" required>
+          <option value="">Set new status…</option>
+          <option value="booked">Booked</option>
+          <option value="in_transit">In transit</option>
+          <option value="at_customs">At customs</option>
+          <option value="cleared">Cleared</option>
+          <option value="out_for_delivery">Out for delivery</option>
+          <option value="delivered">Delivered</option>
+        </select>
+        <input type="text" name="note" class="form-control" style="max-width:320px;" placeholder="Optional note">
+        <button type="submit" class="btn btn-navy">Update &amp; notify client</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+<h2 class="h5">Documents</h2>
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    {% if documents %}
+      <ul class="list-group list-group-flush mb-3">
+        {% for doc in documents %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{{ doc.file.url }}" target="_blank" class="link-navy text-decoration-none">{{ doc.get_doc_type_display }}</a>
+          <span class="text-muted small">{{ doc.uploaded_at|date:"d M Y" }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted text-center py-3">No documents uploaded yet.</p>
+    {% endif %}
+
+    {% if is_staff_user %}
+      <form method="post" action="{% url 'portal:upload_document' shipment.reference %}" enctype="multipart/form-data" class="d-flex gap-2 flex-wrap border-top pt-3">
+        {% csrf_token %}
+        <select name="doc_type" class="form-select" style="max-width:220px;" required>
+          <option value="">Document type…</option>
+          <option value="bol">Bill of lading</option>
+          <option value="awb">Airway bill</option>
+          <option value="customs">Customs declaration</option>
+          <option value="invoice">Invoice</option>
+          <option value="other">Other</option>
+        </select>
+        <input type="file" name="file" class="form-control" style="max-width:320px;" required>
+        <button type="submit" class="btn btn-outline-navy">Upload</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

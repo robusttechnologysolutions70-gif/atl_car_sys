@@ -1,0 +1,49 @@
+{% extends "portal/dashboard_base.html" %}
+{% block title %}New shipment — Atlas Cargo{% endblock %}
+{% block dashboard_content %}
+<div style="max-width: 700px;">
+  <a href="{% url 'portal:shipment_list' %}" class="text-decoration-none small text-muted">&larr; Back to shipments</a>
+  <h1 class="mt-2 mb-1">New shipment</h1>
+  <p class="text-muted mb-4">Created for your branch — {{ request.user.staff_profile.get_branch_display }}.</p>
+
+  <form method="post" class="card border-0 shadow-sm p-4">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger py-2">{{ form.non_field_errors }}</div>{% endif %}
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Client</label>
+        {{ form.client }}
+        {% if form.client.errors %}<div class="text-danger small mt-1">{{ form.client.errors|join:", " }}</div>{% endif %}
+        <div class="form-text">Don't see them? <a href="{% url 'portal:client_create' %}">Add a new client</a> first.</div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Freight mode</label>
+        {{ form.mode }}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Origin</label>
+        {{ form.origin }}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Destination</label>
+        {{ form.destination }}
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Bill of lading (optional)</label>
+        {{ form.bill_of_lading }}
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Airway bill (optional)</label>
+        {{ form.airway_bill }}
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">ETA (optional)</label>
+        {{ form.eta }}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-navy mt-4">Create shipment</button>
+  </form>
+</div>
+{% endblock %}

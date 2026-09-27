@@ -1,0 +1,38 @@
+{% extends "portal/dashboard_base.html" %}
+{% block title %}New client — Atlas Cargo{% endblock %}
+{% block dashboard_content %}
+<div style="max-width: 600px;">
+  <a href="{% url 'portal:client_list' %}" class="text-decoration-none small text-muted">&larr; Back to clients</a>
+  <h1 class="mt-2 mb-4">New client</h1>
+
+  <form method="post" class="card border-0 shadow-sm p-4">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger py-2">{{ form.non_field_errors }}</div>{% endif %}
+
+    <div class="mb-3">
+      <label class="form-label">Login username</label>
+      {{ form.username }}
+      {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors|join:", " }}</div>{% endif %}
+      <div class="form-text">{{ form.username.help_text }}</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Company name</label>
+      {{ form.company_name }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Phone number</label>
+      {{ form.phone_number }}
+    </div>
+    <div class="form-check mb-2">
+      {{ form.sms_opt_in }}
+      <label class="form-check-label">SMS notifications</label>
+    </div>
+    <div class="form-check mb-4">
+      {{ form.whatsapp_opt_in }}
+      <label class="form-check-label">WhatsApp notifications</label>
+    </div>
+
+    <button type="submit" class="btn btn-navy">Create client</button>
+  </form>
+</div>
+{% endblock %}

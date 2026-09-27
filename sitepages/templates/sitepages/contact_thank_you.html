@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Thank you — Atlas Cargo{% endblock %}
+{% block content %}
+<div class="container text-center py-5" style="max-width: 600px;">
+  <h1 class="mb-3">Thanks — your message is in</h1>
+  <p class="text-muted">We'll get back to you within one business day.</p>
+  <a href="{% url 'sitepages:home' %}" class="btn btn-navy mt-3">Back to home</a>
+</div>
+{% endblock %}

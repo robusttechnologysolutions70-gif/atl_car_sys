@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load portal_extras %}
+{% block title %}Track your shipment — Atlas Cargo{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width: 700px;">
+  <h1 class="mb-2">Track your shipment</h1>
+  <p class="text-muted mb-4">Enter your Atlas Cargo reference, Bill of Lading, or AirWay Bill number.</p>
+
+  <form method="get" class="d-flex gap-2 mb-4">
+    <input type="text" name="ref" class="form-control form-control-lg" placeholder="e.g. ACS-1A2B3C4D" value="{{ query }}" required>
+    <button class="btn btn-navy btn-lg" type="submit">Track</button>
+  </form>
+
+  {% if searched %}
+    {% if shipment %}
+      <div class="card p-4 border-0 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">{{ shipment.reference }}</h5>
+          <span class="badge text-bg-{{ shipment.status|status_color }}">{{ shipment.get_status_display }}</span>
+        </div>
+        <p class="text-muted mb-3">{{ shipment.origin }} &rarr; {{ shipment.destination }} &middot; {{ shipment.get_mode_display }}</p>
+        <ul class="list-group list-group-flush">
+          {% for update in shipment.status_updates.all %}
+            <li class="list-group-item">
+              <strong>{{ update.get_status_display }}</strong>
+              <span class="text-muted small">&mdash; {{ update.created_at|date:"d M Y, H:i" }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <div class="alert alert-warning">
+        No shipment found for "{{ query }}". Double-check the reference, or <a href="{% url 'sitepages:quote' %}" class="alert-link">get in touch</a>.
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

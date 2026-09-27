@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Our Services — Atlas Cargo Systems{% endblock %}
+{% block content %}
+
+<div class="page-header text-white py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-2">Our Services</h1>
+    <p class="opacity-75 mb-0">Supply chain solutions from source to final destination</p>
+  </div>
+</div>
+
+<div class="container py-5">
+  <p class="text-muted text-center mx-auto mb-5" style="max-width: 780px;">Atlas Cargo Systems furnishes supply chain solutions from source to final destination. Our services encompass clearance, freight forwarding, warehousing, transportation, port services, cargo handling and other managed logistics services — integrated, or standing individually, to suit clients large and small.</p>
+
+  <div class="row align-items-center g-4 mb-5 pb-4 border-bottom">
+    <div class="col-md-5">
+      <img src="{% static 'img/stock/airport-ramp.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Air cargo at an airport terminal">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-airplane text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Air freight forwarding</h3>
+      <p class="text-muted">Atlas Cargo Systems offers international and domestic airfreight forwarding services connecting all major global markets, meeting your global transportation needs within Uganda and around the world — from small to large consignments, handled with integrity and professionalism.</p>
+      <ul class="text-muted small mb-3">
+        <li>Door-to-door and airport-to-airport service and pricing options</li>
+        <li>Charters and special cargo</li>
+        <li>Consolidation and direct-to-consignees service</li>
+      </ul>
+      <a href="{% url 'sitepages:quote' %}" class="btn btn-outline-navy">Get an air freight quote</a>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4 mb-5 pb-4 border-bottom flex-md-row-reverse">
+    <div class="col-md-5">
+      <img src="{% static 'img/stock/containers-stacked.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Stacked shipping containers">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-water text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Ocean freight forwarding</h3>
+      <p class="text-muted">Our credible working relations with shipping lines give clients access to a global carrier portfolio spanning major ports, with the best transit times, flexible scheduling and space protection agreements to meet your individual shipping requirements.</p>
+      <ul class="text-muted small mb-3">
+        <li>Domestic and international ocean freight, worldwide consolidation</li>
+        <li>LCL (Less than Container Load) and FCL (Full Container Load)</li>
+        <li>Ocean charter and container management</li>
+      </ul>
+      <a href="{% url 'sitepages:quote' %}" class="btn btn-outline-navy">Get an ocean freight quote</a>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4 mb-5 pb-4 border-bottom">
+    <div class="col-md-5">
+      <img src="{% static 'img/company/truck-branded-1.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Atlas Cargo Systems road freight truck">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-truck text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Road freight forwarding</h3>
+      <p class="text-muted">From small trucks to prime movers, our diverse fleet provides road freight transport for everything from parcels and documents to oversized machinery and bulk commodities — with transport management and planning that responds quickly to disruptions such as weather, additional pick-ups or heavy traffic.</p>
+      <a href="{% url 'sitepages:quote' %}" class="btn btn-outline-navy">Get a road freight quote</a>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4 mb-5 pb-4 border-bottom flex-md-row-reverse">
+    <div class="col-md-5">
+      <img src="{% static 'img/company/warehouse-boxes.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Atlas Cargo Systems warehouse storage">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-building text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Warehousing</h3>
+      <p class="text-muted">Atlas provides a holistic warehousing and distribution package, managed by a dedicated team, with an advanced network and warehouse planning that leads to continuous improvement across the Atlas affiliate warehouse grid.</p>
+      <ul class="text-muted small mb-3">
+        <li>Warehouse storage and bonded facilities</li>
+        <li>Crafting, hazardous cargo, FCL and break-bulk transport</li>
+        <li>Container packing &amp; unpacking, tracking and tracing, stock inventory and status reporting</li>
+      </ul>
+      <a href="{% url 'sitepages:quote' %}" class="btn btn-outline-navy">Ask about warehousing</a>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4 mb-5 pb-4 border-bottom">
+    <div class="col-md-5">
+      <img src="{% static 'img/company/truck-branded-2.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Atlas Cargo Systems countrywide delivery truck">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-geo-alt text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Country-wide logistics</h3>
+      <p class="text-muted">Speedy, efficient and low-cost delivery of all types of cargo locally, including temperature-sensitive and delicate shipments. Our experience in bio-pharma transportation is among the best in the market — organizations including Joint Medical Stores, Medical Access and the Ministry of Health have relied on our countrywide distribution, upcountry included, cold-chain shipments handled within the pharmaceutical industry's standard 2&ndash;8&deg;C tolerance.</p>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4 mb-5 pb-4 border-bottom flex-md-row-reverse">
+    <div class="col-md-5">
+      <img src="{% static 'img/company/it-systems.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Atlas Cargo Systems IT infrastructure">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-cpu text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Technology</h3>
+      <p class="text-muted">We operate in a complex international sector where efficiency to international standard is crucial. Our IT systems are built to handle the functions a fully automated logistics process needs:</p>
+      <ul class="text-muted small mb-0">
+        <li>Manifesting plus integrated load &amp; yard management</li>
+        <li>Inbound transportation management and freight auditing</li>
+        <li>Electronic data interchange (EDI), inbound and outbound tracking</li>
+        <li>Transportation procurement, planning and routing guide management</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4">
+    <div class="col-md-5">
+      <img src="{% static 'img/company/truck-branded-3.jpg' %}" class="img-fluid rounded-3 shadow-sm" alt="Atlas Cargo Systems customs documentation and clearance">
+    </div>
+    <div class="col-md-7">
+      <i class="bi bi-file-earmark-check text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Customs brokerage</h3>
+      <p class="text-muted mb-0">Our technical knowledge of customs service gives us a unique comprehension of the laws and regulations, licenses and procedures, concessions and tariffs, valuations and trade agreements across Uganda and the region. Our experienced, licensed customs agents handle documentation for import and export, and advise on trade, tax rates and duty exemptions.</p>
+    </div>
+  </div>
+
+  <div class="row align-items-center g-4 mt-2 pt-4 border-top">
+    <div class="col-md-12">
+      <i class="bi bi-exclamation-diamond text-navy fs-1 mb-2 d-block"></i>
+      <h3 class="fw-bold">Cargo crisis management</h3>
+      <p class="text-muted mb-0">When cargo handling standards fall out of step with the level, timing or area a shipment demands, prompt resolution matters — a company's reputation and its clients' business opportunities are at stake. Atlas provides prompt support and counsel in logistics management, ready to assist clients in crisis situations seven days a week with the best available forwarding solutions.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bg-navy text-white py-5">
+  <div class="container text-center">
+    <h3 class="fw-bold mb-2">Not sure which service fits?</h3>
+    <p class="opacity-75 mb-4">Tell us what you're moving and where — we'll recommend the right option.</p>
+    <a href="{% url 'sitepages:quote' %}" class="btn btn-light btn-lg">Request a quote</a>
+  </div>
+</div>
+{% endblock %}

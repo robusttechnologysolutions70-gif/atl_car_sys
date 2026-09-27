@@ -1,0 +1,41 @@
+{% extends "portal/dashboard_base.html" %}
+{% block title %}New staff account — Atlas Cargo{% endblock %}
+{% block dashboard_content %}
+<div style="max-width: 600px;">
+  <a href="{% url 'portal:staff_list' %}" class="text-decoration-none small text-muted">&larr; Back to staff accounts</a>
+  <h1 class="mt-2 mb-4">New staff account</h1>
+
+  <form method="post" class="card border-0 shadow-sm p-4">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger py-2">{{ form.non_field_errors }}</div>{% endif %}
+
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      {{ form.username }}
+      {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors|join:", " }}</div>{% endif %}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email (optional)</label>
+      {{ form.email }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Temporary password</label>
+      {{ form.password }}
+      {% if form.password.errors %}<div class="text-danger small mt-1">{{ form.password.errors|join:", " }}</div>{% endif %}
+      <div class="form-text">{{ form.password.help_text }}</div>
+    </div>
+    <div class="row g-3 mb-4">
+      <div class="col-6">
+        <label class="form-label">Branch</label>
+        {{ form.branch }}
+      </div>
+      <div class="col-6">
+        <label class="form-label">Role</label>
+        {{ form.role }}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-navy">Create staff account</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "portal/dashboard_base.html" %}
+{% load portal_extras %}
+{% block title %}Shipments — Atlas Cargo{% endblock %}
+{% block dashboard_content %}
+<h1>{% if is_staff_user %}Branch shipments{% else %}Your shipments{% endif %}</h1>
+<p class="text-muted mb-4">
+  {% if is_staff_user %}
+    All shipments for your branch. Click a reference to view details or update status.
+  {% else %}
+    Track the status and documents for every shipment on your account.
+  {% endif %}
+</p>
+
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr><th>Reference</th><th>Route</th><th>Mode</th><th>Status</th><th>ETA</th></tr>
+      </thead>
+      <tbody>
+        {% for shipment in shipments %}
+        <tr>
+          <td><a href="{% url 'portal:shipment_detail' shipment.reference %}" class="fw-semibold text-decoration-none link-navy">{{ shipment.reference }}</a></td>
+          <td>{{ shipment.origin }} &rarr; {{ shipment.destination }}</td>
+          <td>{{ shipment.get_mode_display }}</td>
+          <td><span class="badge text-bg-{{ shipment.status|status_color }}">{{ shipment.get_status_display }}</span></td>
+          <td>{{ shipment.eta|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-5">No shipments yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if is_paginated %}
+<nav class="mt-3">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer</a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Older</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

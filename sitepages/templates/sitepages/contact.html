@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Contact Us — Atlas Cargo Systems{% endblock %}
+{% block content %}
+
+<div class="page-header text-white py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-2">Contact Us</h1>
+    <p class="opacity-75 mb-0">Reach the right branch, or send us a message</p>
+  </div>
+</div>
+
+<div class="ratio ratio-21x9" style="max-height: 420px;">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.756744544765!2d32.62741931475329!3d0.31832199976775694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177db955bbbdb9c1%3A0x9d5bbb7705ba7107!2sAtlas+Cargo!5e0!3m2!1sen!2s!4v1466680359961"
+    style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Atlas Cargo Systems — Kampala office location"></iframe>
+</div>
+
+<div class="container py-5">
+  <div class="row g-4 mb-5">
+    <div class="col-md-6">
+      <div class="card h-100 border-0 shadow-sm p-4">
+        <i class="bi bi-geo-alt-fill text-navy fs-2 mb-2"></i>
+        <h5>Kampala Office</h5>
+        <p class="text-muted small mb-2">Plot 1 Kireka (Sabuni) Road, Mbuya, off Luzira Road<br>P.O. Box 7765, Kampala, Uganda</p>
+        <p class="text-muted small mb-1"><i class="bi bi-telephone me-1"></i> +256 414 345 861 / +256 414 237 406 / +256 312 278 852</p>
+        <p class="text-muted small mb-0"><i class="bi bi-envelope me-1"></i> customercare@atlascargosys.biz</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100 border-0 shadow-sm p-4">
+        <i class="bi bi-geo-alt-fill text-navy fs-2 mb-2"></i>
+        <h5>Entebbe Office</h5>
+        <p class="text-muted small mb-2">Entebbe International Airport, Cargo Terminal Building, Room No. 34</p>
+        <p class="text-muted small mb-1"><i class="bi bi-telephone me-1"></i> +256 703 729 699 / +256 779 436 700</p>
+        <p class="text-muted small mb-0"><i class="bi bi-envelope me-1"></i> tobias@atlascargosys.biz</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-5">
+    <div class="col-md-5">
+      <h4 class="fw-bold mb-3">Get in touch</h4>
+      <ul class="list-unstyled text-muted">
+        <li class="mb-3"><i class="bi bi-telephone me-2 text-navy"></i> Call the branch that fits your shipment</li>
+        <li class="mb-3"><i class="bi bi-envelope me-2 text-navy"></i> Or send a message using the form</li>
+        <li class="mb-3"><i class="bi bi-clock me-2 text-navy"></i> We aim to respond within one business day</li>
+      </ul>
+      <p class="text-muted small">For an existing shipment, it's usually faster to <a href="{% url 'sitepages:track' %}" class="link-navy">track it directly</a> or log in to the <a href="{% url 'login' %}" class="link-navy">client portal</a>.</p>
+    </div>
+    <div class="col-md-7">
+      <form method="post" class="card border-0 shadow-sm p-4">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="alert alert-danger py-2">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Full name</label>
+            {{ form.name }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            {{ form.email }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone (optional)</label>
+            {{ form.phone_number }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Subject</label>
+            {{ form.subject }}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Message</label>
+            {{ form.message }}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-navy mt-4">Send message</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

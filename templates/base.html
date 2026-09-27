@@ -1,0 +1,125 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Atlas Cargo Systems{% endblock %}</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'site.css' %}">
+  <link rel="icon" href="{% static 'img/logo-mark.png' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-brand-navy sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{% url 'sitepages:home' %}">
+      <img src="{% static 'img/logo-mark.png' %}" alt="Atlas Cargo Systems logo" height="34">
+      Atlas <span class="text-accent">Cargo</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav me-auto">
+        {% if request.resolver_match.namespace == "portal" %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'sitepages:home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'portal:dashboard' %}"><i class="bi bi-arrow-left me-1"></i>Back</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'sitepages:home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'sitepages:about' %}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'sitepages:services' %}">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'sitepages:contact' %}">Contact</a></li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userMenuToggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-1"></i>{{ user.get_username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuToggle">
+              <li><a class="dropdown-item" href="{% url 'portal:dashboard' %}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button class="dropdown-item" type="submit">Log out</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        {% else %}
+          <li class="nav-item"><a class="btn btn-outline-light btn-sm" href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags|default:'info' }} py-2">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="bg-dark text-light pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+          <img src="{% static 'img/logo-mark.png' %}" alt="Atlas Cargo Systems logo" height="30">
+          Atlas <span class="text-accent">Cargo</span>
+        </h5>
+        <p class="text-white-50 small">Clearing, forwarding &amp; logistics across Uganda — air, sea and road freight through Kampala &amp; Entebbe.</p>
+      </div>
+      <div class="col-6 col-md-2">
+        <h6 class="text-uppercase small fw-bold mb-3">Navigation</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{% url 'sitepages:home' %}" class="text-white-50 text-decoration-none">Home</a></li>
+          <li class="mb-2"><a href="{% url 'sitepages:about' %}" class="text-white-50 text-decoration-none">About</a></li>
+          <li class="mb-2"><a href="{% url 'sitepages:services' %}" class="text-white-50 text-decoration-none">Services</a></li>
+          <li class="mb-2"><a href="{% url 'sitepages:contact' %}" class="text-white-50 text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-2">
+        <h6 class="text-uppercase small fw-bold mb-3">Quick links</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{% url 'sitepages:track' %}" class="text-white-50 text-decoration-none">Track shipment</a></li>
+          <li class="mb-2"><a href="{% url 'sitepages:quote' %}" class="text-white-50 text-decoration-none">Get a quote</a></li>
+          <li class="mb-2"><a href="{% url 'login' %}" class="text-white-50 text-decoration-none">Client / Staff login</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-2">
+        <h6 class="text-uppercase small fw-bold mb-3">Our services</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2 text-white-50">Air freight</li>
+          <li class="mb-2 text-white-50">Sea freight</li>
+          <li class="mb-2 text-white-50">Road freight</li>
+          <li class="mb-2 text-white-50">Customs clearing</li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+        <h6 class="text-uppercase small fw-bold mb-3">Branches</h6>
+        <ul class="list-unstyled small text-white-50">
+          <li class="mb-2"><i class="bi bi-geo-alt me-1"></i> Kampala</li>
+          <li class="mb-2"><i class="bi bi-geo-alt me-1"></i> Entebbe International Airport</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-secondary my-4">
+    <div class="text-center text-white-50 small">
+      &copy; {% now "Y" %} Atlas Cargo Systems Ltd &middot; All rights reserved
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
